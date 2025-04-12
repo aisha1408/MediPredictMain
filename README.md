@@ -77,6 +77,8 @@ Each CSV file must contain the following columns:
 2. **Data Visualization**:
    - The dashboard uses `Streamlit` to provide an interactive UI where users can upload data and view predictions.
    - `Matplotlib` is used for generating charts that visualize predictions over the next 30 days.
+  ![image](https://github.com/user-attachments/assets/221f8638-39f4-4fa2-8c3f-fdb7ee39f3b6)
+
 ![image](https://github.com/user-attachments/assets/3296be67-3302-4cbf-aea8-2fe942551dab)
 ![image](https://github.com/user-attachments/assets/9fd49299-3cde-431d-9711-ea563586674f)
 ![image](https://github.com/user-attachments/assets/ba1fc690-ae7a-45f4-b4b0-2f4d1832ec5e)
