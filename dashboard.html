@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediPredict - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <h3>👋 Welcome back, {{ username }}</h3>
+            <a href="/logout" class="btn logout-btn">Logout</a>
+            
+            <div class="file-uploads">
+                <h4>Upload your CSV data</h4>
+                
+                <div class="upload-group">
+                    <label for="admissions">Admissions logs</label>
+                    <input type="file" id="admissions" accept=".csv">
+                </div>
+                
+                <div class="upload-group">
+                    <label for="demographics">Patient demographics</label>
+                    <input type="file" id="demographics" accept=".csv">
+                </div>
+                
+                <div class="upload-group">
+                    <label for="discharge">Patient discharge</label>
+                    <input type="file" id="discharge" accept=".csv">
+                </div>
+
+                <div class="upload-group">
+                    <label for="icu">ICU equipment usage</label>
+                    <input type="file" id="icu" accept=".csv">
+                </div>
+
+                <div class="upload-group">
+                    <label for="staff">Staff Roster</label>
+                    <input type="file" id="staff" accept=".csv">
+                </div>
+
+                <div class="upload-group">
+                    <label for="emergency">Emergency</label>
+                    <input type="file" id="emergency" accept=".csv">
+                </div>
+
+                <div class="upload-group">
+                    <label for="department">Department-wise Patients</label>
+                    <input type="file" id="department" accept=".csv">
+                </div>
+                
+                
+                <button id="process-data" class="btn">Process Data</button>
+            </div>
+        </aside>
+        
+        <main class="content">
+            <h1>🩺 Medipredict</h1>
+            <h2>Where we predict the resources for your hospital.</h2>
+            
+            <div class="description">
+                <p>This AI-powered dashboard helps hospitals predict patient admissions, estimate average length of stay (LOS), and forecast bed/staff needs using previous existing hospital data.</p>
+                <p>Upload the following datasets:</p>
+                <ul>
+                    <li>Admissions data</li>
+                    <li>Patient demographics</li>
+                    <li>Discharge logs</li>
+                    <li>ICU equipment usage</li>
+                    <li>Staff roster</li>
+                    <li>Emergency case logs</li>
+                    <li>Department-wise patient logs</li>
+                </ul>
+                <p>The system uses machine learning (Prophet + Random Forest) to visualize and forecast future resource demands, helping administrators make better decisions in advance.</p>
+            </div>
+            
+            
+            <div id="forecasts">
+                {% if results %}
+                    <div class="tabs">
+                        <div class="tab-nav" id="tab-nav">
+                            {% for dept in results %}
+                                <button class="tab-btn {% if loop.first %}active{% endif %}" data-tab="tab-{{ loop.index }}">{{ dept }}</button>
+                            {% endfor %}
+                        </div>
+                        <div class="tab-content-wrapper" style="overflow-x: auto;">
+                            {% for dept, data in results.items() %}
+                                <div class="tab-content {% if loop.first %}active{% endif %}" id="tab-{{ loop.index }}">
+                                    <img class="graph-image" src="data:image/png;base64,{{ data.chart }}" alt="{{ dept }} Chart">
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="loading">Please upload all required files to view forecasts</div>
+                {% endif %}
+            </div>
+            
+        </main>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

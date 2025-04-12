@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediPredict - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🩺 Welcome to MediPredict!</h1>
+        <h2>🔑 Login / Register</h2>
+        
+        <div class="tabs">
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="register">Register</button>
+            </div>
+            
+            <div class="tab-content active" id="login-tab">
+                <form action="/login" method="post">
+                    <div class="form-group">
+                        <label for="login-username">Username</label>
+                        <input type="text" id="login-username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                    {% if login_error %}
+                    <div class="error">{{ login_error }}</div>
+                    {% endif %}
+                </form>
+            </div>
+            
+            <div class="tab-content" id="register-tab">
+                <form action="/register" method="post">
+                    <div class="form-group">
+                        <label for="register-username">New Username</label>
+                        <input type="text" id="register-username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">New Password</label>
+                        <input type="password" id="register-password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn">Create Account</button>
+                    {% if register_error %}
+                    <div class="error">{{ register_error }}</div>
+                    {% endif %}
+                    {% if register_success %}
+                    <div class="success">{{ register_success }}</div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+</body>
+</html>
